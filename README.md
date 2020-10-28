@@ -1,1 +1,1 @@
-# Im Lazy.
+# I'm Lazy.
