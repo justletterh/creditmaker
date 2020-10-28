@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>'credit.json' Data Entry</title>
+<meta charset="UTF-8">
+<link rel="icon" href="https://avatars2.githubusercontent.com/u/63440442?s=460&v=4">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+<script>
+function repo(){
+    var data=new URLSearchParams();
+    data.append("name",document.getElementById("reponame").value);
+    data.append("url",document.getElementById("repourl").value);
+    fetch("/repo?"+data.toString(),{method:'get'});
+    notif();
+    return false;
+}
+function language(){
+    var data=new URLSearchParams();
+    data.append("name",document.getElementById("langname").value);
+    data.append("url",document.getElementById("langurl").value);
+    fetch("/lang?"+data.toString(),{method:'get'});
+    notif();
+    return false;
+}
+function lib(){
+    var data=new URLSearchParams();
+    data.append("name",document.getElementById("libname").value);
+    data.append("url",document.getElementById("liburl").value);
+    data.append("lang",document.getElementById("liblang").value);
+    fetch("/lib?"+data.toString(),{method:'get'});
+    notif();
+    return false;
+}
+function misc(){
+    var data=new URLSearchParams();
+    data.append("name",document.getElementById("miscname").value);
+    data.append("details",document.getElementById("miscdetails").value);
+    fetch("/misc?"+data.toString(),{method:'get'});
+    notif();
+    return false;
+}
+</script>
+<style>
+body{
+    font-size: 28px;
+    text-align: center;
+    background-color: rgb(0,0,0);
+    color: rgb(255,255,255);
+}
+input{
+    margin-top: 10px;
+    font-size: 22.5px;
+}
+input[type=text]{
+    box-sizing: border-box;
+    background-color: rgb(0,0,0);
+    color: rgb(255,255,255);
+    border: 2.5px solid rgb(255,255,255);
+}
+input[type=submit],button{
+    background-color: rgb(0,0,0);
+    color: rgb(255,255,255);
+    padding: 5px 5px;
+    border: 2.5px solid rgb(255,255,255);
+}
+::placeholder {
+  color: rgb(255,255,255);
+  opacity: 1;
+}
+:-ms-input-placeholder {
+  color: rgb(255,255,255);
+}
+::-ms-input-placeholder {
+  color: rgb(255,255,255);
+}
+form{
+    margin: 0 auto;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+h1{
+    text-decoration: underline;
+    text-transform: capitalize;
+}
+label{
+    font-weight: bold;
+}
+#success-alert{
+    z-index: 100;
+    width: 25%;
+    font-size: 15px;
+    height: 25px;
+    line-height: 25%;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+</style>
+</head>
+<body>
+<div class="alert alert-success fade show" id="success-alert">Success!</div>
+<h1>language Input:</h1>
+<form onsubmit="return language()" autocomplete="off">
+<input type="text" placeholder="Name" id="langname" name="name"></input>
+<input type="text" placeholder="URL" id="langurl" name="url"></input>
+<input type="submit" value="Submit"></input>
+</form>
+<h1>Repository Input:</h1>
+<form onsubmit="return repo()" autocomplete="off">
+<input type="text" placeholder="Name" id="reponame" name="name"></input>
+<input type="text" placeholder="URL" id="repourl" name="url"></input>
+<input type="submit" value="Submit"></input>
+</form>
+<h1>Library Input:</h1>
+<form onsubmit="return lib()" autocomplete="off">
+<input type="text" placeholder="Name" id="libname" name="name"></input>
+<input type="text" placeholder="URL" id="liburl" name="url"></input>
+<input type="text" placeholder="Language" id="liblang" name="lang"></input>
+<input type="submit" value="Submit"></input>
+</form>
+<h1>Misc. Input:</h1>
+<form onsubmit="return misc()" autocomplete="off">
+<input type="text" placeholder="Name" id="miscname" name="name"></input>
+<input type="text" placeholder="Details" id="miscdetails" name="url"></input>
+<input type="submit" value="Submit"></input>
+</form>
+<h1 style="text-transform: uppercase;">danger:</h1>
+<button onclick="fetch('shutdown',{method:'get'});notif()">Shutdown Server</button>
+<script>
+$(document).ready(function () {
+    $("#success-alert").hide();
+});
+function notif(){
+    $("#success-alert").css("opacity","1");
+    $("#success-alert").show();
+    window.setTimeout(function() {
+        $("#success-alert").fadeTo(1000, 0).slideUp(1000, function(){
+            $("#success-alert").hide();
+        });
+    }, 1500);
+}
+</script>
+</body>
+</html>
